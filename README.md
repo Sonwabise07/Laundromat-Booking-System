@@ -10,8 +10,7 @@ A full-stack web application developed for the Durban University of Technology, 
 
 ## Overview
 
-This project is a successful prototype of a comprehensive laundromat management system. As a key developer and analyst on the team, my role involved translating business needs into a functional application. The platform enables customers to book laundry services, process secure online payments, and receive real-time notifications about their service status.
-
+This project is a successful prototype of a comprehensive laundromat management system. As a key developer and analyst on the team, my role involved translating business needs into a functional application. The platform enables customers to book laundry services, process secure online payments, make reviews on your experience.
 ## Key Features & Functionalities
 
 - **User Authentication:** Secure user registration and login system.
