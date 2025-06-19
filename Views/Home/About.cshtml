@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="inner-banner py-5">
+    <div class="w3l-breadcrumb py-lg-5">
+        <div class="container pt-5 pb-sm-4 pb-2">
+            <h4 class="inner-text-title font-weight-bold pt-5">About Us</h4>
+            <ul class="breadcrumbs-custom-path">
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- //inner banner -->
+<!-- about section -->
+<section class="w3l-about-2 py-5">
+    <div class="container py-lg-5 py-md-4 py-2">
+        <div class="row justify-content-between align-items-center pb-lg-5">
+            <div class="col-lg-6 about-2-secs-right mb-lg-0 mb-5">
+                <div class="image-box inverse position-relative">
+                    <div class="image-box__static">
+                        <img src="~/images/about1.jpg" alt="" width="364" height="459">
+                    </div>
+                    <div class="image-box__float">
+                        <img src="~/images/about2.jpg" alt="" width="364" height="459">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 about-2-secs-left ps-lg-5 mt-lg-4 mt-5">
+                <h5 class="sub-title">More than 10 Years of Experience</h5>
+                <h3 class="title-style">Welcome to Mr. Onu's Laundromat!</h3>
+                <p class="mt-4">
+                    Founded by Mr. Onu, our laundromat has been proudly serving the community for over a decade.
+                    We are more than just a laundry service; we are a part of the community's fabric, committed to making your life easier.
+                </p>
+                <p>
+                    At Mr. Onu's Laundromat, we believe in giving back. We actively participate in local charity initiatives
+                    to support and uplift our community. Your trust in us helps us contribute to causes that matter.
+                </p>
+                <p>
+                    Our team of experienced and dedicated employees ensures that your laundry needs are met with precision and care.
+                    We take pride in our work, striving for 100% customer satisfaction with every load.
+                </p>
+                <ul class="mt-4 list-style-lis">
+                    <li><i class="fas fa-check-circle"></i>100% Customer Satisfaction</li>
+                    <li><i class="fas fa-check-circle"></i>Your Laundry, Our Passion</li>
+                    <li><i class="fas fa-check-circle"></i>Affordable Prices</li>
+                </ul>
+                <a href="#" class="btn btn-style mt-4" id="readMoreButton">Discover More</a>
+                <p id="hiddenDescription" style="display: none;">
+                    At Mr. Onu's Laundromat, we are committed to providing top-quality laundry services. Our team is dedicated to ensuring your laundry needs are met with precision and care. We strive for 100% customer satisfaction with every load. Your trust in us helps us contribute to causes that matter.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $("#readMoreButton").click(function () {
+            $("#hiddenDescription").toggle();
+        });
+    });
+</script>

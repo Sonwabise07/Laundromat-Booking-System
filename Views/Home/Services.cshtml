@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Services";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var services = new List<dynamic>
+    {
+        new
+        {
+            Title = "Washing",
+            Description = "Our washing service is designed to clean your clothes thoroughly using the latest technology and gentle detergents. We take care of all fabrics, ensuring your garments look and feel fresh.",
+            Image = "service5.jpg",
+            IsExpanded = false
+        },
+        new
+        {
+            Title = "Stain Treatment",
+            Description = "Our stain treatment service is highly effective in removing tough stains, ensuring your clothes remain in pristine condition. We use eco-friendly solutions to protect your garments.",
+            Image = "service4.jpg",
+            IsExpanded = false
+        },
+        new
+        {
+            Title = "Drying",
+            Description = "Our drying service ensures that your clothes are dried efficiently and without any damage. We use state-of-the-art dryers that take care of your garments while saving your time.",
+            Image = "service1.jpg",
+            IsExpanded = false
+        },
+        new
+        {
+            Title = "Ironing",
+            Description = "Our ironing service ensures your clothes are neatly pressed and ready to wear. We pay attention to every detail, providing you with perfectly ironed garments.",
+            Image = "service3.jpg",
+            IsExpanded = false
+        }
+    };
+}
+
+<div class="w3l-grids-block-5 py-5">
+    <div class="container py-lg-5 py-md-4 py-2">
+        <div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:500px;">
+            <h5 class="sub-title">What We Offer</h5>
+            <h3 class="title-style">Our Services</h3>
+        </div>
+        <div class="row text-center justify-content-center">
+            @foreach (var service in services)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="servicecard-single">
+                        <div class="grids5-info position-relative">
+                            <img src="~/images/@service.Image" alt="@service.Title" class="img-fluid" />
+                        </div>
+                        <div class="content-main-top">
+                            <h4>@service.Title</h4>
+                            <p style="display: none;">@service.Description</p>
+                            <a class="btn btn-style mt-4 read-more-toggle">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".read-more-toggle").click(function () {
+            var description = $(this).prev("p");
+            description.toggle();
+            $(this).text(description.is(":visible") ? "Read Less" : "Read More");
+        });
+    });
+</script>

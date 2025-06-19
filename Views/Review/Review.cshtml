@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Review";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Leave a Review for the Application</h3>
+
+<form asp-action="SubmitApplicationReview" method="post">
+    <div class="form-group">
+        <label for="star-rating">Rating:</label>
+        <div class="star-rating" id="star-rating">
+            <input type="checkbox" id="star5" name="Rating" value="5" /><label for="star5"></label>
+            <input type="checkbox" id="star4" name="Rating" value="4" /><label for="star4"></label>
+            <input type="checkbox" id="star3" name="Rating" value="3" /><label for="star3"></label>
+            <input type="checkbox" id="star2" name="Rating" value="2" /><label for="star2"></label>
+            <input type="checkbox" id="star1" name="Rating" value="1" /><label for="star1"></label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" id="comment" name="Comment" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+</form>
+
+<div id="thank-you-message" style="display: none;">
+    <h4>Thank you for your review!</h4>
+    <p>Your feedback is valuable to us.</p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    .star-rating {
+        display: inline-block;
+        font-size: 0;
+    }
+
+        .star-rating input[type="checkbox"] {
+            display: none;
+        }
+
+        .star-rating label {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            background-image: url('/rating/Empty.png'); /* Use a relative path */
+            background-size: contain;
+        }
+
+        .star-rating input[type="checkbox"]:checked + label {
+            background-image: url('/rating/Filled.png'); /* Use a relative path */
+        }
+</style>

@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ASP.NETCoreIdentityCustom</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <!-- Use the CSS path from the first layout -->
+    <link rel="stylesheet" href="~/css/style-starter.css" asp-append-version="true" />
+
+    <!-- Render the "Scripts" section -->
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- Add custom styles -->
+    <style>
+        /* Style the Contact Us section */
+        .contact-us {
+            background-color: black;
+            color: white;
+            padding: 20px 0;
+        }
+
+        /* Style the social media links */
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+        }
+
+        /* Style for theme switch button */
+        .theme-switch {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .small-slider {
+            position: relative;
+            cursor: pointer;
+            width: 40px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 12px;
+        }
+
+            .small-slider:before {
+                position: absolute;
+                content: "";
+                height: 18px;
+                width: 18px;
+                left: 3px;
+                bottom: 3px;
+                background-color: white;
+                transition: 0.4s;
+                border-radius: 50%;
+            }
+
+            .small-slider input:checked + .small-slider:before {
+                transform: translateX(18px);
+            }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <span style="font-family: 'Verdana', sans-serif; font-size: 28px; color: #39A2AE;">WashMe</span>
+
+            <!-- Navigation Links (Left-aligned) -->
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-start">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary" asp-area="" asp-controller="Reviews" asp-action="Review">Review</a>
+
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Theme Change Button (Centered in the navigation bar) -->
+            <div class="mx-auto theme-switch">
+                <input type="checkbox" id="theme-toggle" />
+                <label for="theme-toggle" class="small-slider round"></label>
+
+            </div>
+
+            <!-- Display "Logout" when logged in, "Login" and "Register" when not logged in -->
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                <ul class="navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="logout" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Video Section (Visible only when not logged in) -->
+    @if (!User.Identity.IsAuthenticated)
+    {
+        @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+        {
+            <section class="banner-19" style="position: relative;">
+                <div class="banner-layer">
+                    <video autoplay muted loop id="myVideo" style="width: 100%; height: auto; max-height: 100vh; object-fit: cover;">
+                        <source src="~/videos/video.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </section>
+        }
+    }
+
+    <!-- Conditional Video Display Section -->
+    @RenderBody()
+
+    <!-- "Book" button after logging in -->
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="container mt-3">
+            <a class="btn btn-primary" asp-area="" asp-controller="Bookings" asp-action="Create">Book</a>
+        </div>
+    }
+
+    @{
+        var controllerName = ViewContext.RouteData.Values["controller"]?.ToString();
+        var actionName = ViewContext.RouteData.Values["action"]?.ToString();
+    }
+
+    <!-- Contact Us Section (if not in Bookings Create or Index) -->
+    @if (controllerName != null && actionName != null &&
+    !(controllerName.Equals("Bookings", StringComparison.OrdinalIgnoreCase) && (actionName.Equals("Create", StringComparison.OrdinalIgnoreCase) || actionName.Equals("Index", StringComparison.OrdinalIgnoreCase))
+    ))
+    {
+        <footer class="border-top footer text-muted">
+            <div class="container-fluid contact-us">
+                <div class="footer-list-cont d-flex align-items-center justify-content-between mb-5">
+                    @if (controllerName != null && actionName != null &&
+                   !(controllerName.Equals("Bookings", StringComparison.OrdinalIgnoreCase) && (actionName.Equals("Create", StringComparison.OrdinalIgnoreCase) || actionName.Equals("Index", StringComparison.OrdinalIgnoreCase))) &&
+                   !(controllerName.Equals("Reviews", StringComparison.OrdinalIgnoreCase) && actionName.Equals("Review", StringComparison.OrdinalIgnoreCase))
+                   )
+                    {
+                        <div style="font-family: 'Verdana', sans-serif; font-size: 20px; color: white;">
+                            <h6 class="foot-sub-title" style="font-size: 24px; color: blue;">Contact Us</h6>
+                            <p>Sector 428, Mahatma Gandhi Road, <br>POINT DURBAN..</p>
+                            <p>Everyday: 8 AM - 5 PM</p>
+                        </div>
+                        <div style="font-family: 'Verdana', sans-serif; font-size: 20px; color: white;">
+                            <h6 class="foot-sub-title" style="font-size: 24px; color: blue;">Contact Info</h6>
+                            <p>Phone: +27 633693716</p>
+                            <p>Email: <a href="mailto:washmelaundery@gmail.com" class="mail">washmelaundery@gmail.com</a></p>
+                        </div>
+                        <div style="font-family: 'Verdana', sans-serif; font-size: 20px; color: white;">
+                            <h6 class="foot-sub-title" style="font-size: 24px; color: blue;">Social Media</h6>
+                            <div class="social-links">
+                                <a href="#" style="color: white;"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" style="color: white;"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </footer>
+
+    }
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- jQuery Validation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+    <!-- jQuery Unobtrusive Validation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+   <script src="~/lib/signalr/signalr.min.js"></script>
+
+
+    <!-- Theme Change Script -->
+    <script>
+        const toggleSwitch = document.querySelector('#theme-toggle');
+
+        // Check for the user's theme preference in local storage
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'dark') {
+                toggleSwitch.checked = true;
+            }
+        }
+
+        // Function to switch the theme
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+    </script>
+</body>
+</html>

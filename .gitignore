@@ -1,0 +1,28 @@
+# Visual Studio / .NET Core
+## Ignore build output
+[Bb]in/
+[Oo]bj/
+
+## Ignore user-specific files
+*.user
+*.suo
+
+## Ignore generated files
+*.Generated.cs
+
+## Ignore publish output
+publish/
+**/publish/
+
+## Ignore other miscellaneous files
+*.vs/
+.vs/
+project.lock.json
+*.csproj.user
+*.sln.docstates
+
+# Rider
+.idea/
+
+# Mac
+.DS_Store
